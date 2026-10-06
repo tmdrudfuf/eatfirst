@@ -18,9 +18,10 @@ const MIN_FOODS = 3;
 export function ReminderPrompt() {
   const theme = useTheme();
   const { foods, refresh, showMessage } = useFoods();
-  const [hidden, setHidden] = useState(() => wasReminderPromptShown() || getReminderSettings().enabled);
+  const [hidden, setHidden] = useState(false);
 
-  if (hidden || foods.length < MIN_FOODS) return null;
+  // Read the flags on every render: Settings can turn reminders on while this tab stays mounted.
+  if (hidden || foods.length < MIN_FOODS || wasReminderPromptShown() || getReminderSettings().enabled) return null;
 
   const close = () => {
     markReminderPromptShown();
