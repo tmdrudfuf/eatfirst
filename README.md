@@ -39,4 +39,4 @@ npm run check          # self-check: date logic + daily reminder text
 - `src/stores` — zustand: active foods + snackbar, add-flow selection
 - `src/utils/dates.ts` — Eat By is a local `YYYY-MM-DD`, never `toISOString()`
 - `src/services/notificationService.ts` — daily summary: cancel all + schedule next 7 days on every change
-- `scripts/make_icons.py` — regenerates the placeholder icon set (Pillow)
+- `scripts/make_icons.py` — regenerates the icon set: fork | fridge with check | spoon (Pillow)
