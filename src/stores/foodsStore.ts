@@ -9,6 +9,7 @@ type Snackbar = { message: string; undoId?: string; key: number };
 type FoodsState = {
   foods: FoodItem[];
   loaded: boolean;
+  loadFailed: boolean;
   snackbar: Snackbar | null;
   refresh: () => Promise<void>;
   addFoods: (items: { name: string; eatBy: string }[]) => Promise<void>;
@@ -18,6 +19,8 @@ type FoodsState = {
   showMessage: (message: string) => void;
   dismissSnackbar: () => void;
 };
+
+export const ERROR_MESSAGE = 'Something went wrong. Please try again.';
 
 const STATUS_MESSAGE = {
   EATEN: 'marked as eaten',
@@ -30,11 +33,18 @@ const STATUS_MESSAGE = {
 export const useFoods = create<FoodsState>((set, get) => ({
   foods: [],
   loaded: false,
+  loadFailed: false,
   snackbar: null,
 
   refresh: async () => {
-    const foods = await repo.getActiveFoods();
-    set({ foods, loaded: true });
+    let foods: FoodItem[];
+    try {
+      foods = await repo.getActiveFoods();
+    } catch (e) {
+      set({ loadFailed: true });
+      throw e;
+    }
+    set({ foods, loaded: true, loadFailed: false });
     rescheduleReminders(foods).catch((e) => console.warn('Reminder scheduling failed', e));
   },
 
@@ -58,8 +68,12 @@ export const useFoods = create<FoodsState>((set, get) => ({
     const id = get().snackbar?.undoId;
     set({ snackbar: null });
     if (!id) return;
-    await repo.setFoodStatus(id, 'ACTIVE');
-    await get().refresh();
+    try {
+      await repo.setFoodStatus(id, 'ACTIVE');
+      await get().refresh();
+    } catch {
+      get().showMessage(ERROR_MESSAGE);
+    }
   },
 
   showMessage: (message) => set({ snackbar: { message, key: Date.now() } }),

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { SectionList, StyleSheet, Text, View } from 'react-native';
 
 import { AdBanner } from '@/components/AdBanner';
-import { EmptyState } from '@/components/EmptyState';
+import { EmptyState, NotLoaded } from '@/components/EmptyState';
 import { FoodRow } from '@/components/FoodRow';
 import { ReminderPrompt } from '@/components/ReminderPrompt';
 import { useTheme } from '@/constants/theme';
@@ -26,7 +26,7 @@ export default function EatFirstScreen() {
       .map((g) => ({ title: GROUP_TITLES[g], data: groups[g] }));
   }, [foods, today]);
 
-  if (!loaded) return <View style={{ flex: 1, backgroundColor: theme.background }} />;
+  if (!loaded) return <NotLoaded />;
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.background }}>

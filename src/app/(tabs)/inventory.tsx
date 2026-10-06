@@ -1,7 +1,7 @@
 import { FlatList, View } from 'react-native';
 
 import { AdBanner } from '@/components/AdBanner';
-import { EmptyState } from '@/components/EmptyState';
+import { EmptyState, NotLoaded } from '@/components/EmptyState';
 import { FoodRow } from '@/components/FoodRow';
 import { useTheme } from '@/constants/theme';
 import { useFoods } from '@/stores/foodsStore';
@@ -14,7 +14,7 @@ export default function InventoryScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.background }}>
-      {loaded && (
+      {loaded ? (
         <FlatList
           data={foods}
           keyExtractor={(f) => f.id}
@@ -22,6 +22,8 @@ export default function InventoryScreen() {
           contentContainerStyle={foods.length ? undefined : { flexGrow: 1 }}
           ListEmptyComponent={<EmptyState title="Nothing in your fridge yet" body="Foods you add will show up here." />}
         />
+      ) : (
+        <NotLoaded />
       )}
       <AdBanner />
     </View>

@@ -8,7 +8,7 @@ import { EmptyState } from '@/components/EmptyState';
 import { PrimaryButton } from '@/components/PrimaryButton';
 import { useTheme } from '@/constants/theme';
 import { getFood, type FoodItem } from '@/repositories/foodRepository';
-import { useFoods } from '@/stores/foodsStore';
+import { ERROR_MESSAGE, useFoods } from '@/stores/foodsStore';
 import { daysUntil, formatDateKey, formatTimestamp, relativeLabel } from '@/utils/dates';
 import { cleanFoodName } from '@/utils/normalizeFoodName';
 
@@ -18,7 +18,7 @@ export default function FoodDetailScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { setStatus, updateFood } = useFoods();
+  const { setStatus, updateFood, showMessage } = useFoods();
   const [food, setFood] = useState<FoodItem | null | undefined>(undefined);
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState('');
@@ -32,8 +32,12 @@ export default function FoodDetailScreen() {
   if (food === null) return <EmptyState title="Food not found" body="It may have been removed." />;
 
   const resolve = async (status: 'EATEN' | 'DISCARDED' | 'DELETED') => {
-    await setStatus(food, status);
-    router.back();
+    try {
+      await setStatus(food, status);
+      router.back();
+    } catch {
+      showMessage(ERROR_MESSAGE);
+    }
   };
 
   const confirmDelete = () =>
@@ -49,9 +53,13 @@ export default function FoodDetailScreen() {
   };
 
   const saveEdit = async () => {
-    await updateFood(food.id, { name, eatBy });
-    setFood({ ...food, name: cleanFoodName(name), eat_by: eatBy });
-    setEditing(false);
+    try {
+      await updateFood(food.id, { name, eatBy });
+      setFood({ ...food, name: cleanFoodName(name), eat_by: eatBy });
+      setEditing(false);
+    } catch {
+      showMessage(ERROR_MESSAGE);
+    }
   };
 
   const days = daysUntil(food.eat_by);

@@ -29,9 +29,10 @@ export function ReminderPrompt() {
 
   const accept = async () => {
     close();
-    if ((await requestReminderPermission()) === 'granted') {
+    const result = await requestReminderPermission().catch(() => 'denied' as const);
+    if (result === 'granted') {
       saveReminderSettings({ ...getReminderSettings(), enabled: true });
-      await refresh();
+      await refresh().catch(() => {});
       showMessage('Daily reminder on. Change the time in Settings.');
     } else {
       showMessage('Reminders are off. You can turn them on in Settings.');
