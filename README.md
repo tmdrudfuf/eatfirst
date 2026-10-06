@@ -17,7 +17,7 @@ npx expo start --dev-client
 ```bash
 npx tsc --noEmit
 npx eslint .
-npm run check          # date logic self-check
+npm run check          # self-check: date logic + daily reminder text
 ```
 
 ## Layout
@@ -27,3 +27,5 @@ npm run check          # date logic self-check
 - `src/repositories/foodRepository.ts` — all SQL lives here
 - `src/stores` — zustand: active foods + snackbar, add-flow selection
 - `src/utils/dates.ts` — Eat By is a local `YYYY-MM-DD`, never `toISOString()`
+- `src/services/notificationService.ts` — daily summary: cancel all + schedule next 7 days on every change
+- `scripts/make_icons.py` — regenerates the placeholder icon set (Pillow)

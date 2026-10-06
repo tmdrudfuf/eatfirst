@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 import * as repo from '@/repositories/foodRepository';
 import type { FoodItem, FoodStatus } from '@/repositories/foodRepository';
+import { rescheduleReminders } from '@/services/notificationService';
 
 type Snackbar = { message: string; undoId?: string; key: number };
 
@@ -32,7 +33,9 @@ export const useFoods = create<FoodsState>((set, get) => ({
   snackbar: null,
 
   refresh: async () => {
-    set({ foods: await repo.getActiveFoods(), loaded: true });
+    const foods = await repo.getActiveFoods();
+    set({ foods, loaded: true });
+    rescheduleReminders(foods).catch((e) => console.warn('Reminder scheduling failed', e));
   },
 
   addFoods: async (items) => {

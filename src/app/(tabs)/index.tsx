@@ -3,6 +3,7 @@ import { SectionList, StyleSheet, Text, View } from 'react-native';
 
 import { EmptyState } from '@/components/EmptyState';
 import { FoodRow } from '@/components/FoodRow';
+import { ReminderPrompt } from '@/components/ReminderPrompt';
 import { useTheme } from '@/constants/theme';
 import type { FoodItem } from '@/repositories/foodRepository';
 import { useFoods } from '@/stores/foodsStore';
@@ -39,6 +40,7 @@ export default function EatFirstScreen() {
             {section.title}
           </Text>
         )}
+        ListHeaderComponent={<ReminderPrompt />}
         contentContainerStyle={sections.length ? undefined : { flexGrow: 1 }}
         ListEmptyComponent={
           <EmptyState title="Your fridge to-do list is empty" body="Tap + to add food and choose when you want to eat it." />
