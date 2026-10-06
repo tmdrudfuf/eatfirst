@@ -12,6 +12,17 @@ npm run android        # prebuild + debug build + install (expo run:android)
 npx expo start --dev-client
 ```
 
+## Ads (AdMob)
+
+Debug builds always load Google's test banner. Without env vars, release builds also use Google's
+sample app ID and test banner unit. For a real release, set both at build time:
+
+```bash
+ADMOB_ANDROID_APP_ID=ca-app-pub-XXXX~YYYY EXPO_PUBLIC_ADMOB_BANNER_ID=ca-app-pub-XXXX/ZZZZ npx expo run:android --variant release
+```
+
+Banners appear only on Eat First and Inventory, after UMP consent; any failure (offline, no fill) renders nothing.
+
 ## Checks
 
 ```bash

@@ -4,6 +4,7 @@ import { AppState, useColorScheme } from 'react-native';
 
 import { Snackbar } from '@/components/Snackbar';
 import { useTheme } from '@/constants/theme';
+import { initAds } from '@/services/ads';
 import { useFoods } from '@/stores/foodsStore';
 
 export default function RootLayout() {
@@ -16,6 +17,7 @@ export default function RootLayout() {
   useEffect(() => {
     const load = () => refresh().catch((e) => console.error('Failed to load foods', e));
     load();
+    initAds();
     const sub = AppState.addEventListener('change', (s) => s === 'active' && load());
     return () => sub.remove();
   }, [refresh]);

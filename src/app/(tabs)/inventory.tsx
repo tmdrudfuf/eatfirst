@@ -1,5 +1,6 @@
 import { FlatList, View } from 'react-native';
 
+import { AdBanner } from '@/components/AdBanner';
 import { EmptyState } from '@/components/EmptyState';
 import { FoodRow } from '@/components/FoodRow';
 import { useTheme } from '@/constants/theme';
@@ -22,6 +23,7 @@ export default function InventoryScreen() {
           ListEmptyComponent={<EmptyState title="Nothing in your fridge yet" body="Foods you add will show up here." />}
         />
       )}
+      <AdBanner />
     </View>
   );
 }

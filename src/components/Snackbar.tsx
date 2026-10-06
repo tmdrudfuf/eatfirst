@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useAds } from '@/services/ads';
 import { useFoods } from '@/stores/foodsStore';
 
 const DURATION_MS = 5000;
@@ -9,6 +10,7 @@ const DURATION_MS = 5000;
 export function Snackbar() {
   const insets = useSafeAreaInsets();
   const { snackbar, undo, dismissSnackbar } = useFoods();
+  const bannerHeight = useAds((s) => s.bannerHeight);
 
   useEffect(() => {
     if (!snackbar) return;
@@ -22,7 +24,7 @@ export function Snackbar() {
     <View
       pointerEvents="box-none"
       accessibilityLiveRegion="polite"
-      style={[styles.wrap, { bottom: insets.bottom + 72 }]}>
+      style={[styles.wrap, { bottom: insets.bottom + 72 + bannerHeight }]}>
       <View style={styles.bar}>
         <Text style={styles.text} numberOfLines={2}>
           {snackbar.message}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Alert, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 
 import { useTheme } from '@/constants/theme';
+import { showAdPrivacyOptions, useAds } from '@/services/ads';
 import {
   getReminderSettings,
   markReminderPromptShown,
@@ -20,6 +21,7 @@ const formatTime = (hour: number, minute: number) =>
 export default function SettingsScreen() {
   const theme = useTheme();
   const [settings, setSettings] = useState(getReminderSettings);
+  const privacyOptionsRequired = useAds((s) => s.privacyOptionsRequired);
 
   const apply = (next: ReminderSettings) => {
     saveReminderSettings(next);
@@ -71,6 +73,15 @@ export default function SettingsScreen() {
       <Text style={[styles.note, { color: theme.textSecondary }]}>
         At most one notification a day, only when food is due that day or earlier.
       </Text>
+
+      {privacyOptionsRequired && (
+        <Pressable
+          onPress={() => showAdPrivacyOptions().catch(() => {})}
+          accessibilityRole="button"
+          style={[styles.row, { borderBottomColor: theme.border, marginTop: 16 }]}>
+          <Text style={[styles.label, { color: theme.text }]}>Ad privacy options</Text>
+        </Pressable>
+      )}
 
       <Text style={[styles.note, { color: theme.textSecondary, marginTop: 24 }]}>
         Eat First {Constants.expoConfig?.version} · Your food list is stored only on this device.

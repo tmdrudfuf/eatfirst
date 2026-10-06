@@ -41,5 +41,8 @@
       "typedRoutes": true,
       "reactCompiler": true
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_sdk": "classic"
   }
 }
