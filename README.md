@@ -1,6 +1,6 @@
 # Eat First
 
-Your fridge's to-do list. Local-first Android app (Expo SDK 57, Expo Router, expo-sqlite). See [masterplan.md](masterplan.md).
+Your fridge's to-do list. Local-first Android app (Expo SDK 57, Expo Router, expo-sqlite).
 
 ## Run (Android)
 

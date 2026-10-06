@@ -42,3 +42,6 @@ example
 /ios
 /android
 graphify-out/
+
+# local-only product plan
+masterplan.md
