@@ -1,6 +1,7 @@
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import { useEffect } from 'react';
 import { AppState, useColorScheme } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { Snackbar } from '@/components/Snackbar';
 import { useTheme } from '@/constants/theme';
@@ -23,16 +24,17 @@ export default function RootLayout() {
   }, [refresh]);
 
   return (
-    <ThemeProvider
-      value={{ ...base, colors: { ...base.colors, primary: theme.tint, background: theme.background } }}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="add" options={{ title: 'Add Food' }} />
-        <Stack.Screen name="eat-by" options={{ title: 'Eat By' }} />
-        <Stack.Screen name="food/[id]" options={{ title: '' }} />
-        <Stack.Screen name="settings" options={{ title: 'Settings' }} />
-      </Stack>
-      <Snackbar />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider value={{ ...base, colors: { ...base.colors, primary: theme.tint, background: theme.background } }}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="add" options={{ title: 'Add Food' }} />
+          <Stack.Screen name="eat-by" options={{ title: 'Eat By' }} />
+          <Stack.Screen name="food/[id]" options={{ title: '' }} />
+          <Stack.Screen name="settings" options={{ title: 'Settings' }} />
+        </Stack>
+        <Snackbar />
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }

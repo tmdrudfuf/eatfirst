@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAds } from '@/services/ads';
 import { useFoods } from '@/stores/foodsStore';
 
-const DURATION_MS = 5000;
+const DURATION_MS = 8000; // swipes make accidental Ate/Thrown away easy, so leave time to Undo
 
 export function Snackbar() {
   const insets = useSafeAreaInsets();
