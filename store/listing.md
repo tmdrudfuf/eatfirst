@@ -1,6 +1,6 @@
 # Play Store listing — Eat First
 
-Graphics in this folder: `icon-512.png` (app icon), `feature-graphic.png` (1024×500), `screenshots/*.png` (1080×2160).
+Graphics in this folder: `icon-512.png` (app icon), `feature-graphic.png` (1024×500), `screenshots/*.png` (1080×1920 — Play phone screenshots must be exactly 9:16).
 Regenerate icon + feature graphic with `python scripts/make_icons.py`.
 
 ## English (default)
