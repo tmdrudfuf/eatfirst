@@ -14,12 +14,10 @@ npx expo start --dev-client
 
 ## Ads (AdMob)
 
-Debug builds always load Google's test banner. Without env vars, release builds also use Google's
-sample app ID and test banner unit. For a real release, set both at build time:
-
-```bash
-ADMOB_ANDROID_APP_ID=ca-app-pub-XXXX~YYYY EXPO_PUBLIC_ADMOB_BANNER_ID=ca-app-pub-XXXX/ZZZZ npx expo run:android --variant release
-```
+App ID is in `app.json` (plugin entry), banner unit in `src/services/ads.ts` — both are public values.
+Debug builds load Google's test banner; release builds serve real ads, so register your phone as a
+test device in AdMob before using a release build yourself. The root `"react-native-google-mobile-ads"`
+key in `app.json` only exists because the library's `app-json.gradle` fails to evaluate without it.
 
 Banners appear only on Eat First and Inventory, after UMP consent; any failure (offline, no fill) renders nothing.
 

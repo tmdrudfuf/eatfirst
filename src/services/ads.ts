@@ -1,10 +1,8 @@
 import mobileAds, { AdsConsent, AdsConsentPrivacyOptionsRequirementStatus, TestIds } from 'react-native-google-mobile-ads';
 import { create } from 'zustand';
 
-// Debug builds always use Google's test unit. Release builds read the real unit at build time.
-export const BANNER_UNIT_ID = __DEV__
-  ? TestIds.ADAPTIVE_BANNER
-  : (process.env.EXPO_PUBLIC_ADMOB_BANNER_ID ?? TestIds.ADAPTIVE_BANNER);
+// Debug builds use Google's test unit; release builds serve real ads (never tap your own).
+export const BANNER_UNIT_ID = __DEV__ ? TestIds.ADAPTIVE_BANNER : 'ca-app-pub-3024928824650244/4696530073';
 
 // bannerHeight lets the snackbar sit above the banner, so a tap meant for Undo never lands on an ad.
 export const useAds = create(() => ({ ready: false, privacyOptionsRequired: false, bannerHeight: 0 }));

@@ -81,7 +81,7 @@ https://developers.google.com/admob/android/privacy/play-data-disclosure
 
 ## 7. AdMob 쪽
 
-- 앱 ID / 배너 광고 단위 ID → 코드에 반영 (Claude에게 전달)
+- 앱 ID `ca-app-pub-3024928824650244~8305611753`, 배너 단위 `ca-app-pub-3024928824650244/4696530073` → 코드 반영 완료
 - 개인정보 보호 및 메시지 → GDPR(유럽) 동의 메시지 만들기 — 없으면 EEA/UK 사용자에게 광고가 제한됨
 - 설정 → 테스트 기기에 본인 폰 등록 (실광고 빌드에서 본인 광고 클릭 방지)
 - Play에 등록된 뒤 AdMob 앱을 스토어 등록정보와 연결

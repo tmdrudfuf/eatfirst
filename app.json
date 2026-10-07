@@ -8,7 +8,7 @@
     "scheme": "eatfirst",
     "userInterfaceStyle": "automatic",
     "android": {
-      "package": "com.ky.eatfirst",
+      "package": "com.tmdrudfuf.eatfirst",
       "adaptiveIcon": {
         "backgroundColor": "#2E7D32",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -43,7 +43,13 @@
           "color": "#2E7D32"
         }
       ],
-      "./plugins/withReleaseSigning"
+      "./plugins/withReleaseSigning",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-3024928824650244~8305611753"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
