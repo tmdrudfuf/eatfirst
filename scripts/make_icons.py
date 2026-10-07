@@ -61,3 +61,23 @@ draw(432, detail=CLEAR).save(OUT + 'android-icon-monochrome.png')
 draw(288, zoom=1.15).save(OUT + 'splash-icon.png')  # Android 12+ masks splash icons to a circle
 draw(96, detail=CLEAR, zoom=1.75).save(OUT + 'notification-icon.png')
 draw(48, bg=GREEN, zoom=1.3).save(OUT + 'favicon.png')
+
+# Play Store listing assets
+import os
+from PIL import ImageFont
+
+os.makedirs('store', exist_ok=True)
+draw(512, bg=GREEN, zoom=1.3).convert('RGB').save('store/icon-512.png')
+
+fg = Image.new('RGB', (1024, 500), GREEN[:3])
+art = draw(420, zoom=1.45)
+fg.paste(art, (40, 40), art)
+try:
+    bold = ImageFont.truetype('arialbd.ttf', 96)
+    regular = ImageFont.truetype('arial.ttf', 44)
+except OSError:
+    bold = regular = ImageFont.load_default()
+d = ImageDraw.Draw(fg)
+d.text((470, 175), 'Eat First', font=bold, fill=WHITE)
+d.text((474, 295), "Your fridge's to-do list.", font=regular, fill=(232, 245, 233))
+fg.save('store/feature-graphic.png')

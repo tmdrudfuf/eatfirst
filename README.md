@@ -23,6 +23,12 @@ ADMOB_ANDROID_APP_ID=ca-app-pub-XXXX~YYYY EXPO_PUBLIC_ADMOB_BANNER_ID=ca-app-pub
 
 Banners appear only on Eat First and Inventory, after UMP consent; any failure (offline, no fill) renders nothing.
 
+## Release (Play)
+
+Step-by-step (upload key, AAB build, Play Console answers, Data safety): [store/play-console.md](store/play-console.md).
+Listing text and graphics: [store/listing.md](store/listing.md), `store/*.png`.
+Privacy policy: [docs/privacy.html](docs/privacy.html) → https://tmdrudfuf.github.io/eatfirst/privacy.html
+
 ## Checks
 
 ```bash
@@ -39,4 +45,5 @@ npm run check          # self-check: date logic + daily reminder text
 - `src/stores` — zustand: active foods + snackbar, add-flow selection
 - `src/utils/dates.ts` — Eat By is a local `YYYY-MM-DD`, never `toISOString()`
 - `src/services/notificationService.ts` — daily summary: cancel all + schedule next 7 days on every change
-- `scripts/make_icons.py` — regenerates the icon set: fork | fridge with check | spoon (Pillow)
+- `scripts/make_icons.py` — regenerates the icon set and Play icon/feature graphic (Pillow)
+- `plugins/withReleaseSigning.js` — release signing from `EATFIRST_UPLOAD_*` Gradle properties (kept outside the repo)
